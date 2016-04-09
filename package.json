@@ -1,7 +1,7 @@
 {
   "name": "serverless-authentication-provider",
-  "version": "0.1.0",
-  "description": "General authentication provider module for Serverless Authentication",
+  "version": "0.1.1",
+  "description": "Example authentication provider module for Serverless Authentication",
   "main": "lib/index.js",
   "license": "MIT",
   "private": false,
