@@ -17,7 +17,7 @@
     "url": "https://github.com/laardee/serverless-authentication-provider"
   },
   "dependencies": {
-    "serverless-authentication": "^0.3.0"
+    "serverless-authentication": "^0.4.0"
   },
   "devDependencies": {
     "babel-cli": "^6.6.4",
@@ -25,12 +25,17 @@
     "babel-preset-stage-0": "^6.5.0",
     "chai": "^3.5.0",
     "mocha": "^2.4.5",
-    "nock": "^7.7.2"
+    "nock": "^7.7.2",
+    "eslint": "^2.8.0",
+    "eslint-config-airbnb": "^7.0.0",
+    "eslint-plugin-jsx-a11y": "^0.6.2",
+    "eslint-plugin-react": "^4.3.0"
   },
   "scripts": {
     "compile": "./node_modules/.bin/babel src --out-dir lib",
     "prepublish": "npm run compile-test",
     "test": "./node_modules/.bin/mocha specs/",
-    "compile-test": "npm run compile && npm test"
+    "compile-test": "npm run compile && npm test",
+    "lint": "eslint ./src || true"
   }
 }

@@ -1,4 +1,6 @@
-var chai = require('chai');
+'use strict';
+
+const chai = require('chai');
 
 process.env.PROVIDER_EXAMPLE_ID = 'fb-mock-id';
 process.env.PROVIDER_EXAMPLE_SECRET = 'fb-mock-secret';
@@ -8,7 +10,6 @@ process.env.TOKEN_SECRET = 'token-secret-123';
 
 chai.config.includeStack = true;
 
-global.expect = chai.expect;
 global.AssertionError = chai.AssertionError;
 global.Assertion = chai.Assertion;
 global.assert = chai.assert;

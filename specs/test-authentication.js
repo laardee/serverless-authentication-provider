@@ -1,22 +1,23 @@
 'use strict';
 
-let config = require('serverless-authentication').config;
-let auth = require('../lib');
-let nock = require('nock');
+const config = require('serverless-authentication').config;
+const auth = require('../lib');
+const nock = require('nock');
+const expect = require('chai').expect;
 
 describe('Example authentication', () => {
   describe('Signin', () => {
     it('test signin with default params', () => {
-      let providerConfig = config('example');
-      auth.signin(providerConfig, {}, (err, data) => {
+      const providerConfig = config('example');
+      auth.signinHandler(providerConfig, {}, (err, data) => {
         expect(err).to.be.null;
         expect(data.url).to.equal('https://auth.laardee.com/oauth?client_id=fb-mock-id&redirect_uri=https://api-id.execute-api.eu-west-1.amazonaws.com/dev/callback/example&response_type=code&scope=profile');
       });
     });
 
     it('tests signin with scope and state params', () => {
-      let providerConfig = config('example');
-      auth.signin(providerConfig, {scope: 'profile email', state: '123456'}, (err, data) => {
+      const providerConfig = config('example');
+      auth.signinHandler(providerConfig, {scope: 'profile email', state: '123456'}, (err, data) => {
         expect(err).to.be.null;
         expect(data.url).to.equal('https://auth.laardee.com/oauth?client_id=fb-mock-id&redirect_uri=https://api-id.execute-api.eu-west-1.amazonaws.com/dev/callback/example&response_type=code&scope=profile email&state=123456');
       });
@@ -25,7 +26,7 @@ describe('Example authentication', () => {
 
   describe('Callback', () => {
     before(() => {
-      let providerConfig = config('example');
+      const providerConfig = config('example');
       nock('https://auth.laardee.com')
         .post('/oauth/token')
         .query({
@@ -55,8 +56,8 @@ describe('Example authentication', () => {
         });
     });
     it('should return profile', (done) => {
-      let providerConfig = config('google');
-      auth.callback({code: 'code', state: 'state'}, providerConfig, (err, profile) => {
+      const providerConfig = config('google');
+      auth.callbackHandler({code: 'code', state: 'state'}, providerConfig, (err, profile) => {
         expect(profile.id).to.equal('user-id-1');
         expect(profile.name).to.equal('Eetu Tuomala');
         expect(profile.email).to.equal('email@test.com');
