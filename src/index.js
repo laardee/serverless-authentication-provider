@@ -8,14 +8,14 @@ import { Profile, Provider } from 'serverless-authentication';
  */
 
 function mapProfile(response) {
-  return new Profile({
-    id: response.id,
+  const overwrites = {
     name: response.displayName,
     email: response.emails ? response.emails[0].value : null,
     picture: response.image.url,
     provider: 'example',
     _raw: response
-  });
+  };
+  return new Profile(Object.assign(response, overwrites));
 }
 
 class ExampleProvider extends Provider {
