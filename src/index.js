@@ -12,9 +12,9 @@ function mapProfile(response) {
     name: response.displayName,
     email: response.emails ? response.emails[0].value : null,
     picture: response.image.url,
-    provider: 'example',
-    _raw: response
+    provider: 'example'
   };
+
   return new Profile(Object.assign(response, overwrites));
 }
 
@@ -31,6 +31,7 @@ class ExampleProvider extends Provider {
       { scope, state },
       { signin_uri: 'https://auth.laardee.com/oauth', response_type: 'code' }
     );
+
     super.signin(options, callback);
   }
 
@@ -46,6 +47,7 @@ class ExampleProvider extends Provider {
       profileMap: mapProfile,
       authorizationMethod: 'POST'
     };
+
     super.callback(
       event,
       options,
@@ -55,10 +57,13 @@ class ExampleProvider extends Provider {
   }
 }
 
-export function signinHandler(config, options, callback) {
+const signinHandler = (config, options, callback) =>
   (new ExampleProvider(config)).signinHandler(options, callback);
-}
 
-export function callbackHandler(event, config, callback) {
+const callbackHandler = (event, config, callback) =>
   (new ExampleProvider(config)).callbackHandler(event, callback);
-}
+
+exports.signinHandler = signinHandler;
+exports.signin = signinHandler; // old syntax, remove later
+exports.callbackHandler = callbackHandler;
+exports.callback = callbackHandler; // old syntax, remove later
