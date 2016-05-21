@@ -17,7 +17,7 @@
     "url": "https://github.com/laardee/serverless-authentication-provider"
   },
   "dependencies": {
-    "serverless-authentication": "^0.4.0"
+    "serverless-authentication": "^0.4.4"
   },
   "devDependencies": {
     "babel-cli": "^6.6.4",
